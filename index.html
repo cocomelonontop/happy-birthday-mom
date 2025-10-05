@@ -31,14 +31,34 @@
       margin-top: 40px;
     }
 
-    img {
-      max-width: 300px;
-      margin: 15px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    /* Container for photos */
+    .photo-gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 20px 0;
     }
 
-    /* Floating items (hearts + cakes) */
+    /* All photos responsive */
+    .photo-gallery img {
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      max-width: 90%;
+      height: auto;
+      transition: transform 0.3s;
+    }
+
+    /* Specific sizes */
+    #photo1, #photo3 {
+      flex: 1 1 30%; /* smaller */
+    }
+
+    #photo2 {
+      flex: 1 1 50%; /* biggest */
+    }
+
+    /* Floating hearts & cakes */
     .float {
       position: fixed;
       font-size: 2em;
@@ -51,6 +71,13 @@
       from { transform: translateY(100vh); opacity: 1; }
       to { transform: translateY(-10vh); opacity: 0; }
     }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      #photo1, #photo2, #photo3 {
+        flex: 1 1 80%; /* stack on smaller screens */
+      }
+    }
   </style>
 </head>
 <body>
@@ -58,9 +85,11 @@
   <p>Dear Mom, thank you for everything you’ve done. I love you! 💕</p>
 
   <h2>Our Memories</h2>
-  <img src="photo1.jpg" alt="Photo 1">
-  <img src="photo2.jpg" alt="Photo 2">
-  <img src="photo3.jpg" alt="Photo 3">
+  <div class="photo-gallery">
+    <img id="photo1" src="photo1.jpg" alt="Photo 1">
+    <img id="photo2" src="photo2.jpg" alt="Photo 2">
+    <img id="photo3" src="photo3.jpg" alt="Photo 3">
+  </div>
 
   <!-- Floating hearts & cakes -->
   <script>
@@ -76,5 +105,3 @@
   </script>
 </body>
 </html>
-
-
