@@ -19,6 +19,13 @@
       text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
     }
 
+    #timer {
+      font-size: 1.5em;
+      color: #c2185b;
+      margin-top: 10px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
     p {
       font-size: 1.5em;
       color: #333;
@@ -31,7 +38,6 @@
       margin-top: 40px;
     }
 
-    /* Container for photos */
     .photo-gallery {
       display: flex;
       justify-content: center;
@@ -40,7 +46,6 @@
       margin: 20px 0;
     }
 
-    /* All photos responsive */
     .photo-gallery img {
       border-radius: 15px;
       box-shadow: 0 0 15px rgba(0,0,0,0.3);
@@ -49,16 +54,14 @@
       transition: transform 0.3s;
     }
 
-    /* Specific sizes */
     #photo1, #photo3 {
-      flex: 1 1 30%; /* smaller */
+      flex: 1 1 30%;
     }
 
     #photo2 {
-      flex: 1 1 50%; /* biggest */
+      flex: 1 1 50%;
     }
 
-    /* Floating hearts & cakes */
     .float {
       position: fixed;
       font-size: 2em;
@@ -72,16 +75,18 @@
       to { transform: translateY(-10vh); opacity: 0; }
     }
 
-    /* Responsive tweaks */
     @media (max-width: 768px) {
       #photo1, #photo2, #photo3 {
-        flex: 1 1 80%; /* stack on smaller screens */
+        flex: 1 1 80%;
       }
     }
   </style>
 </head>
 <body>
   <h1>Happy Birthday, Mom! 🎂</h1>
+  <!-- Timer below the title -->
+  <div id="timer"></div>
+
   <p>Dear Mom, thank you for everything you’ve done. I love you! 💕</p>
 
   <h2>Our Memories</h2>
@@ -93,6 +98,7 @@
 
   <!-- Floating hearts & cakes -->
   <script>
+    // Floating hearts & cakes
     const symbols = ["💖", "💗", "💓", "🎂", "💞", "💘"];
     for (let i = 0; i < 25; i++) {
       let item = document.createElement("div");
@@ -102,6 +108,50 @@
       item.style.animationDuration = (5 + Math.random() * 5) + "s";
       document.body.appendChild(item);
     }
+
+    // Timer since October 7, 1983 12:00 AM
+    function updateTimer() {
+      const start = new Date("October 7, 1983 00:00:00");
+      const now = new Date();
+      let diff = now - start; // milliseconds
+
+      const msInMinute = 60 * 1000;
+      const msInHour = 60 * msInMinute;
+      const msInDay = 24 * msInHour;
+
+      // Calculate total days
+      let totalDays = Math.floor(diff / msInDay);
+
+      // Years
+      let years = now.getFullYear() - start.getFullYear();
+      let months = now.getMonth() - start.getMonth();
+      let days = now.getDate() - start.getDate();
+      if (days < 0) {
+        months -= 1;
+        const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += lastMonth.getDate();
+      }
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
+
+      // Hours, minutes, seconds
+      let hours = now.getHours() - start.getHours();
+      let minutes = now.getMinutes() - start.getMinutes();
+      let seconds = now.getSeconds() - start.getSeconds();
+
+      if (seconds < 0) { minutes -= 1; seconds += 60; }
+      if (minutes < 0) { hours -= 1; minutes += 60; }
+      if (hours < 0) { days -= 1; hours += 24; }
+
+      document.getElementById("timer").innerText =
+        `${years} years, ${months} months, ${days} days, ` +
+        `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer(); // run immediately
   </script>
 </body>
 </html>
